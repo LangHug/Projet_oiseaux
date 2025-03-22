@@ -22,10 +22,10 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception{
         Pane root = new Pane();
-        Scene sc=new Scene(root,960,540);
+        Scene sc=new Scene(root,1200,600);
         Random random=new Random();
         for (int n=0;n<=100;n++){
-            boids.add(new Boids(random.nextDouble()*960,random.nextDouble()*540));
+            boids.add(new Boids(random.nextDouble()*1200,random.nextDouble()*600));
             root.getChildren().add(boids.get(n).getShape());
         }
         // Animation
@@ -33,13 +33,13 @@ public class Main extends Application
             @Override
             public void handle(long now) {
                 for (Boids boid : boids){
-                    boid.move(boids,960,540);
+                    boid.move(boids,1200,600);
                 }
             }
         };
         timer.start();
 
-        primaryStage.setTitle("Simulation d'oiseaux");
+        primaryStage.setTitle("Simulation d'une nuée d'oiseaux");
         primaryStage.setScene(sc);
         primaryStage.show();
 
