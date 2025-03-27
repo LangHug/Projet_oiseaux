@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import java.util.Random;
 
 
 public class Boids {
@@ -16,13 +18,14 @@ public class Boids {
     private double avoid_parameter=10;
     private double alignment_parameter=0.03;
     private double cohesion_parameter=0.02;
+    private double wind_parameter=100;
 
 
     public Boids(double x,double y){
         this.x=x;
         this.y=y;
-        this.vx = -20;
-        this.vy = -20;
+        this.vx = 1;
+        this.vy = 1;
         // Créer une forme triangulaire pour représenter le boid
         this.shape = new Polygon();
         this.shape.getPoints().addAll(
@@ -74,9 +77,10 @@ public class Boids {
             }
         }
         
-        
-        vx += avoid_parameter*Fsx;
-        vy += avoid_parameter*Fsy;
+  
+        /*vx += avoid_parameter*Fsx;
+        vy += avoid_parameter*Fsy;*/
+
         //alignement
         double Fax=0; //force alignement selon x
         double Fay=0; //force alignement selon y
@@ -94,8 +98,9 @@ public class Boids {
         }
         Fax=average_vx-this.vx;
         Fay=average_vy-this.vy;
-        vx+=alignment_parameter*Fax;
-        vy+=alignment_parameter*Fay;
+
+        //vx+=alignment_parameter*Fax;
+        //vy+=alignment_parameter*Fay;
         
         //cohésion
         double Fcx=0;
@@ -117,15 +122,26 @@ public class Boids {
         }
         Fcx+=average_x-this.x;
         Fcy+=average_y-this.y;
-        vx+=cohesion_parameter*Fcx;
-        vy+=cohesion_parameter*Fcy;
+        /*vx+=cohesion_parameter*Fcx;
+        vy+=cohesion_parameter*Fcy;*/
 
+        //vent
+        //double Wx=-1;
+        //double Wy=1;     //vent nord-est
+        //vx+=wind_parameter*Wx;
+        //vy+=wind_parameter*Wy;
+        
 
+        double Fx=Fsx+Fax+Fcx;
+        double Fy=Fsy+Fay+Fcy;
+        double F=Math.sqrt(Fx*Fx+Fy*Fy);
         double vitesse=Math.sqrt(vx*vx+vy*vy);
-        if (vitesse>vitessemax){
+        vx=vitesse*Fx/F;
+        vy=vitesse*Fy/F;
+        /*if (vitesse>vitessemax){
             vx=(vx/vitesse)*vitessemax;
             vy=(vy/vitesse)*vitessemax;
-        }
+        }*/
         x=x+vx;
         y=y+vy;
         if (x<0) {x+=longueur;}
