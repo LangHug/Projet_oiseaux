@@ -3,8 +3,6 @@ import java.util.Random;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import java.util.Random;
-
 
 public class Boids {
     private final Polygon shape;
@@ -13,11 +11,12 @@ public class Boids {
     private double y;
     private double vx;
     private double vy;
-    private double rayon_sep=10;
+    private double rayon_sep=20;
     private double rayon_cohesion=100;
-    public double avoid_parameter=10; 
-    public double alignment_parameter=0.01;  
-    public double cohesion_parameter=0.02;
+    private double rayon_alignement = 50;
+    public double avoid_parameter=1; 
+    public double alignment_parameter=0.1;  
+    public double cohesion_parameter=0.2;
     private double wind_parameter=100;
 
 
@@ -25,7 +24,7 @@ public class Boids {
         this.x=x;
         this.y=y;
         Random random = new Random();
-        this.angle = random.nextDouble(-360, 360);
+        this.angle = random.nextDouble(-2*Math.PI, 2*Math.PI);
         this.vx = 3 * Math.cos(this.angle);
         this.vy = 3 * Math.sin(this.angle);
         // Créer une forme triangulaire pour représenter le boid
@@ -61,6 +60,7 @@ public class Boids {
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
+
          // séparation
         double Fsx=0; //force séparation selon x
         double Fsy=0; //force séparation selon y
@@ -83,6 +83,7 @@ public class Boids {
         vy += avoid_parameter*Fsy;*/
 
         //alignement
+        double compteur_al = 1;
         double Fax=0; //force alignement selon x
         double Fay=0; //force alignement selon y
         double average_vx=0; //vitesse moyenne selon x
@@ -91,14 +92,18 @@ public class Boids {
         for (Boids boid : boids){
             if (this==boid) {continue;}
             else {
-                
+                double dx=this.x-boid.getx();
+                double dy=this.y-boid.gety();
+                double distance = Math.sqrt(dx*dx+dy*dy);
+                if (distance < rayon_alignement){
+                    compteur_al += 1;
                     average_vx+=boid.getvx();
                     average_vy+=boid.getvy();
-                
             }
         }
-        Fax=average_vx-this.vx;
-        Fay=average_vy-this.vy;
+    }
+        Fax=(average_vx)/compteur_al - this.vx;
+        Fay=(average_vy)/compteur_al - this.vy;
 
         //vx+=alignment_parameter*Fax;
         //vy+=alignment_parameter*Fay;
@@ -147,10 +152,10 @@ public class Boids {
         }*/
         x=x+vx;
         y=y+vy;
-        if (x<0) {x+=longueur; y+=vy ;}
-        if (x>longueur){x=x-longueur; y-=vy ;}
-        if (y<0){y+=largeur; x+=vx ;}
-        if (y>largeur){y=y-largeur; x+=vx ;}
+        if (x<0) {x+=longueur ;}
+        if (x>longueur){x=x-longueur;}
+        if (y<0){y+=largeur ;}
+        if (y>largeur){y=y-largeur;}
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
