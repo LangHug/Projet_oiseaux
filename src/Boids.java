@@ -7,25 +7,27 @@ import java.util.Random;
 
 
 public class Boids {
+    private final Polygon shape;
+    private double angle;
     private double x;
     private double y;
     private double vx;
     private double vy;
-    private final Polygon shape;
-    private double vitessemax=3;
-    private double rayon_sep=30;
-    private double rayon_cohesion=150;
-    private double avoid_parameter=10;
-    private double alignment_parameter=0.03;
-    private double cohesion_parameter=0.02;
+    private double rayon_sep=10;
+    private double rayon_cohesion=100;
+    public double avoid_parameter=10; 
+    public double alignment_parameter=0.01;  
+    public double cohesion_parameter=0.02;
     private double wind_parameter=100;
 
 
     public Boids(double x,double y){
         this.x=x;
         this.y=y;
-        this.vx = 1;
-        this.vy = 1;
+        Random random = new Random();
+        this.angle = random.nextDouble(-360, 360);
+        this.vx = 3 * Math.cos(this.angle);
+        this.vy = 3 * Math.sin(this.angle);
         // Créer une forme triangulaire pour représenter le boid
         this.shape = new Polygon();
         this.shape.getPoints().addAll(
@@ -72,7 +74,6 @@ public class Boids {
                     // somme pour i dans l'ensemble de séparation du vecteur PPi selon x et selon y
                     Fsx += dx;
                     Fsy += dy;
-                    
                 }
             }
         }
@@ -103,6 +104,7 @@ public class Boids {
         //vy+=alignment_parameter*Fay;
         
         //cohésion
+        double compteur = 1;
         double Fcx=0;
         double Fcy=0;
         double average_x=0;
@@ -112,16 +114,17 @@ public class Boids {
             else {
                 double dx=this.x-boid.getx();
                 double dy=this.y-boid.gety();
-                double distance=Math.sqrt(dx*dx+dy*dy);
+                double distance = Math.sqrt(dx*dx+dy*dy);
                 if (rayon_sep<distance && distance<rayon_cohesion){
                     // calcul le barycentre des positions des boids dans le cercle de cohesion selon x et y
+                    compteur +=1;
                     average_x+=boid.getx();
                     average_y+=boid.gety();
                 }
             }
         }
-        Fcx+=average_x-this.x;
-        Fcy+=average_y-this.y;
+        Fcx+=(average_x)/compteur -this.x;
+        Fcy+=(average_y)/compteur -this.y;
         /*vx+=cohesion_parameter*Fcx;
         vy+=cohesion_parameter*Fcy;*/
 
@@ -132,10 +135,10 @@ public class Boids {
         //vy+=wind_parameter*Wy;
         
 
-        double Fx=Fsx+Fax+Fcx;
-        double Fy=Fsy+Fay+Fcy;
-        double F=Math.sqrt(Fx*Fx+Fy*Fy);
-        double vitesse=Math.sqrt(vx*vx+vy*vy);
+        double Fx = avoid_parameter * Fsx + alignment_parameter * Fax + cohesion_parameter * Fcx;
+        double Fy = avoid_parameter * Fsy + alignment_parameter * Fay + cohesion_parameter * Fcy;
+        double F = Math.sqrt(Fx*Fx+Fy*Fy);
+        double vitesse = Math.sqrt(vx*vx+vy*vy);
         vx=vitesse*Fx/F;
         vy=vitesse*Fy/F;
         /*if (vitesse>vitessemax){
@@ -144,10 +147,10 @@ public class Boids {
         }*/
         x=x+vx;
         y=y+vy;
-        if (x<0) {x+=longueur;}
-        if (x>longueur){x=x-longueur;}
-        if (y<0){y+=largeur;}
-        if (y>largeur){y=y-largeur;}
+        if (x<0) {x+=longueur; y+=vy ;}
+        if (x>longueur){x=x-longueur; y-=vy ;}
+        if (y<0){y+=largeur; x+=vx ;}
+        if (y>largeur){y=y-largeur; x+=vx ;}
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
