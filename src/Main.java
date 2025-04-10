@@ -21,10 +21,13 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception{
         Pane root = new Pane();
+        root.setTranslateX(600);
+        root.setTranslateY(300);
+
         Scene sc=new Scene(root,1200,600);
         Random random=new Random();
         for (int n=0;n<=100;n++){
-            boids.add(new Boids(random.nextDouble()*1200,random.nextDouble()*600));
+            boids.add(new Boids((-1+2*random.nextDouble())*600,(-1+2*random.nextDouble())*300));
             root.getChildren().add(boids.get(n).getShape());
         }
         // Animation

@@ -14,10 +14,10 @@ public class Boids {
     private double rayon_sep=40;
     private double rayon_cohesion=100;
     private double rayon_alignement = 50;
-    public double avoid_parameter=10; 
+    public double avoid_parameter=1; 
     public double alignment_parameter=1;  
-    public double cohesion_parameter=0;
-    private double wind_parameter=100;
+    public double cohesion_parameter=0.0001;
+    private double wind_parameter=0.01;
 
 
     public Boids(double x,double y){
@@ -126,21 +126,21 @@ public class Boids {
                 if (distance<rayon_cohesion){
                     // calcul le barycentre des positions des boids dans le cercle de cohesion selon x et y
                     compteur +=1;
-                    average_x+=boid.getx()-600;
-                    average_y+=boid.gety()-300;
+                    average_x+=boid.getx();
+                    average_y+=boid.gety();
                 }
             }
         }
-        Fcx+=(average_x)/compteur;
-        Fcy+=(average_y)/compteur;
+        Fcx+=(average_x)/compteur-this.x;
+        Fcy+=(average_y)/compteur-this.y;
         /*vx+=cohesion_parameter*Fcx;
         vy+=cohesion_parameter*Fcy;*/
 
-        //vent
-        //double Wx=-1;
-        //double Wy=1;     //vent nord-est
-        //vx+=wind_parameter*Wx;
-        //vy+=wind_parameter*Wy;
+    
+        double Wx=1;
+        double Wy=1;     //vent nord-est
+        vx+=wind_parameter*Wx;
+        vy+=wind_parameter*Wy;
         
 
         double Fx = avoid_parameter * Fsx + alignment_parameter * Fax + cohesion_parameter * Fcx;
@@ -156,10 +156,10 @@ public class Boids {
         }*/
         x=x+vx;
         y=y+vy;
-        if (x<0) {x+=longueur ;}
-        if (x>longueur){x=x-longueur;}
-        if (y<0){y+=largeur ;}
-        if (y>largeur){y=y-largeur;}
+        if (x<-600) {x+=longueur ;}
+        if (x>600){x=x-longueur;}
+        if (y<-300){y+=largeur ;}
+        if (y>300){y=y-largeur;}
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
