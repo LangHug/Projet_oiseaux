@@ -11,14 +11,14 @@ public class Boids {
     private double y;
     private double vx;
     private double vy;
-    private double rayon_sep=40;
-    private double rayon_cohesion=100;
+    private double rayon_sep=30;
+    private double rayon_cohesion=150;
     private double rayon_alignement = 50;
     public double avoid_parameter=1; 
     public double alignment_parameter=1;  
     public double cohesion_parameter=0.0005;
-    private double wind_parameter=0.1;
-    private double theta=0;
+    private double wind_parameter=0;
+    private double theta=3*Math.PI/4;
 
 
     public Boids(double x,double y){
