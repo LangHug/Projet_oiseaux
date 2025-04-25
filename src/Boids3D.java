@@ -35,6 +35,9 @@ public class Boids3D {
         this.vz = 1;
         // Créer une forme triangulaire pour représenter le boid
         this.shape = new Sphere(10);
+        this.shape.setTranslateX(this.x);
+        this.shape.setTranslateY(this.y);
+        this.shape.setTranslateZ(this.z);
         //this.shape.getPoints().addAll(
         //    0.0, -10.0,  // Pointe avant
         //    -5.0, 5.0,   // Coin gauche
