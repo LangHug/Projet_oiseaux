@@ -124,3 +124,27 @@
 .neon-button:pressed {
     -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 30, 1, 0, 0);
 }
+
+
+
+/* Bouton reinitialiser pour Main2D */
+
+.bouton-rei3D {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-font-size: 11px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 255, 42, 0.8), 7, 0.8, 0, 0);
+}
+
+.neon-button:hover {
+    -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 20, 0.9, 0, 0);
+    -fx-cursor: hand;
+}
+
+.neon-button:pressed {
+    -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 30, 1, 0, 0);
+}

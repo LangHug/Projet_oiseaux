@@ -18,8 +18,6 @@ import javafx.scene.control.Separator;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Slider;
-import javafx.scene.control.Separator;
-import javafx.scene.control.ScrollPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -282,7 +280,7 @@ public class Main extends Application
                 ecran.getChildren().clear();
                 for (int n=0;n<=nb_oiseaux-1;n++)
                 {
-                    boids.add(new Boids(random.nextDouble()*LARGEUR_ECRAN,random.nextDouble()*HAUTEUR_ECRAN));
+                    boids.add(new Boids((-1+2*random.nextDouble())*(LARGEUR_ECRAN/2),(-1+2*random.nextDouble())*(HAUTEUR_ECRAN/2)));
                     ecran.getChildren().add(boids.get(n).getShape());
                 }
                 nb_predateurs = nb_predateurs_init;

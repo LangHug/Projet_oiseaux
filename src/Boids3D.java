@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Sphere;
 
@@ -17,11 +19,11 @@ public class Boids3D {
     private double rayon_sep=30;
     private double rayon_cohesion=150;
     private double rayon_alignement = 50;
-    public double avoid_parameter=1; 
-    public double alignment_parameter=1;  
-    public double cohesion_parameter=0.0005;
-    private double wind_parameter=0;
-    private double theta=3*Math.PI/4;
+    public static double avoid_parameter=1; 
+    public static double alignment_parameter=1;  
+    public static double cohesion_parameter=0.0005;
+    public static double wind_parameter=0;
+    public static double theta=3*Math.PI/4;
 
 
     public Boids3D(double x,double y,double z){
@@ -34,10 +36,15 @@ public class Boids3D {
         this.vy = 2 * Math.sin(this.angle);
         this.vz = 1;
         // Créer une forme triangulaire pour représenter le boid
+        
+        
         this.shape = new Sphere(10);
         this.shape.setTranslateX(this.x);
         this.shape.setTranslateY(this.y);
         this.shape.setTranslateZ(this.z);
+        this.shape.setMaterial(new PhongMaterial(Color.YELLOW));
+        
+        
         //this.shape.getPoints().addAll(
         //    0.0, -10.0,  // Pointe avant
         //    -5.0, 5.0,   // Coin gauche
@@ -46,7 +53,7 @@ public class Boids3D {
         //);
         //this.shape.setFill(Color.color(Math.random(), Math.random(), Math.random()));
 
-    
+
     }
 
     public double getx(){
@@ -71,7 +78,7 @@ public class Boids3D {
     public Sphere getShape() {
         return shape;
     }
-    public void move(ArrayList<Boids3D> boids,int longueur,int largeur){
+    public void move(ArrayList<Boids3D> boids,int longueur,int largeur,int profondeur){
 
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
@@ -190,10 +197,12 @@ public class Boids3D {
         x=x+vx;
         y=y+vy;
         z=z+vz;
-        if (x<-600) {x+=longueur ;}
-        if (x>600){x=x-longueur;}
-        if (y<-300){y+=largeur ;}
-        if (y>300){y=y-largeur;}
+        if (x<-longueur/2) {x+=longueur ;}
+        if (x>longueur/2){x=x-longueur;}
+        if (y<-largeur/2){y+=largeur ;}
+        if (y>largeur/2){y=y-largeur;}
+        if (z<-profondeur/2){z=z+profondeur;}
+        if (z>profondeur/2){z=z-profondeur;}
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
