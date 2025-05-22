@@ -1,0 +1,126 @@
+/* NB OISEAUX*/
+
+.slider-nboiseaux .track {
+    -fx-background-color: linear-gradient(to right, #FFCC00, #FF0000);
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-min-height: 8px;
+}
+
+.slider-nboiseaux .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.825);
+    -fx-background-radius: 50%;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.slider-nboiseaux .thumb:hover {
+    -fx-background-color: white; 
+    -fx-scale-x: 1.1; 
+    -fx-scale-y: 1.1; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+
+
+/*avoid align et cohesion = PARAMETER*/
+
+.slider-parameter .track {
+    -fx-background-color: linear-gradient(to right, #0ff0d6, #0800ff);
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-min-height: 8px;
+}
+
+.slider-parameter .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.825);
+    -fx-background-radius: 50%;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.slider-parameter .thumb:hover {
+    -fx-background-color: white; 
+    -fx-scale-x: 1.1; 
+    -fx-scale-y: 1.1; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+
+/* Sliders du vent */
+
+.slider-wind .track {
+    -fx-background-color: linear-gradient(to right, #0ff065, #08560c);
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-min-height: 8px;
+}
+
+.slider-wind .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.825);
+    -fx-background-radius: 50%;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.slider-wind .thumb:hover {
+    -fx-background-color: white; 
+    -fx-scale-x: 1.1; 
+    -fx-scale-y: 1.1; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+
+
+
+/* Boutons des prédateurs */
+
+.bouton-predateur {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-font-size: 11px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 15;
+    -fx-border-radius: 25;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.8), 5, 0.8, 0, 0);
+}
+
+.neon-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.8), 5, 0.8, 0, 0);
+    -fx-cursor: hand;
+}
+
+.neon-button:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.8), 5, 0.8, 0, 0);
+}
+
+
+
+
+
+/* Bouton reinitialiser */
+
+.bouton-rei {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 255, 42, 0.8), 7, 0.8, 0, 0);
+}
+
+.neon-button:hover {
+    -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 20, 0.9, 0, 0);
+    -fx-cursor: hand;
+}
+
+.neon-button:pressed {
+    -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 30, 1, 0, 0);
+}

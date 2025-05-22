@@ -14,11 +14,11 @@ public class Boids {
     private double rayon_sep=30;
     private double rayon_cohesion=150;
     private double rayon_alignement = 50;
-    public double avoid_parameter=1; 
-    public double alignment_parameter=1;  
-    public double cohesion_parameter=0.0005;
-    private double wind_parameter=0;
-    private double theta=3*Math.PI/4;
+    public static double avoid_parameter=1; 
+    public static double alignment_parameter=1;  
+    public static double cohesion_parameter=0.0005;
+    public static double wind_parameter=0;
+    public static double theta=3*Math.PI/4;
 
 
     public Boids(double x,double y){
@@ -62,7 +62,7 @@ public class Boids {
         shape.setTranslateX(x);
         shape.setTranslateY(y);
 
-         // séparation
+        // séparation
         double Fsx=0; //force séparation selon x
         double Fsy=0; //force séparation selon y
         double average_dx=0;
@@ -137,7 +137,7 @@ public class Boids {
         /*vx+=cohesion_parameter*Fcx;
         vy+=cohesion_parameter*Fcy;*/
 
-    
+        // Vent
         double Wx=Math.cos(theta);
         double Wy=Math.sin(theta);     
         
@@ -156,10 +156,15 @@ public class Boids {
         }*/
         x=x+vx;
         y=y+vy;
-        if (x<-600) {x+=longueur ;}
-        if (x>600){x=x-longueur;}
-        if (y<-300){y+=largeur ;}
-        if (y>300){y=y-largeur;}
+        if (x<-Main.LARGEUR_ECRAN/2) {x+=longueur ;}
+        if (x>Main.LARGEUR_ECRAN/2){x=x-longueur;}
+        if (y<-Main.HAUTEUR_ECRAN/2){y+=largeur ;}
+        if (y>Main.HAUTEUR_ECRAN/2){y=y-largeur;}
+        //if (x<-600) {x+=longueur ;}
+        //if (x>600){x=x-longueur;}
+        //if (y<-300){y+=largeur ;}
+        //if (y>300){y=y-largeur;}
+        
         // Mettre à jour la position et la rotation de la forme
         shape.setTranslateX(x);
         shape.setTranslateY(y);
