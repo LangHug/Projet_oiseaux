@@ -34,17 +34,17 @@ public class Main extends Application
     public static final int LARGEUR_ECRAN = 1025;
     public static final int HAUTEUR_ECRAN = 700;
     private final int nb_oiseaux_init = 100;
-    private final double avoid_parameter_max = 20;
-    private final double alignment_parameter_max = 3;
-    private final double cohesion_parameter_max = 0.1;
-    private final double nb_oiseaux_max = 1000;
+    private final double avoid_parameter_max = 10;
+    private final double alignment_parameter_max = 10;
+    private final double cohesion_parameter_max = 0.01;
+    private final double nb_oiseaux_max = 600;
     private final double wind_parameter_init = 0;
-    private final double wind_parameter_max = 100;
+    private final double wind_parameter_max = 5;
     private final int nb_predateurs_init = 0;
     private final double theta_init = 3*Math.PI/4;
     private final double avoid_parameter_init = 1;
     private final double alignment_parameter_init = 1;
-    private final double cohesion_parameter_init = 0.0005;
+    private final double cohesion_parameter_init = 0.001;
 
     private int nb_oiseaux;
     private int nb_predateurs;
@@ -83,7 +83,7 @@ public class Main extends Application
 
 
         Slider slider_oiseaux = new Slider(0, nb_oiseaux_max, nb_oiseaux_init);
-        slider_oiseaux.setMajorTickUnit(50);
+        slider_oiseaux.setMajorTickUnit(100);
         slider_oiseaux.setShowTickMarks(true);
         slider_oiseaux.setShowTickLabels(true);
         slider_oiseaux.getStyleClass().add("slider-nboiseaux");
@@ -92,7 +92,7 @@ public class Main extends Application
 
 
         Slider evitement = new Slider(0, avoid_parameter_max, Boids.avoid_parameter);
-        evitement.setMajorTickUnit(1);
+        evitement.setMajorTickUnit(2);
         evitement.setShowTickMarks(true);
         evitement.setShowTickLabels(true);
         evitement.getStyleClass().add("slider-parameter");
@@ -100,7 +100,7 @@ public class Main extends Application
         Label titre_evitement = new Label("Evitement : " + String.format("%.2f",Boids.avoid_parameter));
 
         Slider alignement = new Slider(0, alignment_parameter_max, Boids.alignment_parameter);
-        alignement.setMajorTickUnit(0.01);
+        alignement.setMajorTickUnit(2);
         alignement.setShowTickMarks(true);
         alignement.setShowTickLabels(true);
         alignement.getStyleClass().add("slider-parameter");
@@ -108,17 +108,17 @@ public class Main extends Application
         Label titre_alignement = new Label("Alignement : " + String.format("%.2f",Boids.alignment_parameter));
 
         Slider cohesion = new Slider(0, cohesion_parameter_max, Boids.cohesion_parameter);
-        cohesion.setMajorTickUnit(0.01);
+        cohesion.setMajorTickUnit(0.002);
         cohesion.setShowTickMarks(true);
         cohesion.setShowTickLabels(true);
         cohesion.getStyleClass().add("slider-parameter");
 
-        Label titre_cohesion = new Label("Cohesion : " + String.format("%.2f",Boids.cohesion_parameter));
+        Label titre_cohesion = new Label("Cohesion : " + String.format("%.4f",Boids.cohesion_parameter));
 
 
         // Vent
         Slider force_vent = new Slider (0, wind_parameter_max, wind_parameter_init);
-        force_vent.setMajorTickUnit(20);
+        force_vent.setMajorTickUnit(1);
         force_vent.setShowTickMarks(true);
         force_vent.setShowTickLabels(true);
         force_vent.getStyleClass().add("slider-wind");
@@ -129,7 +129,7 @@ public class Main extends Application
         // Sens du vent
         
         Slider direction_vent = new Slider(0, 2*Math.PI, theta_init);
-        direction_vent.setMajorTickUnit(20);
+        direction_vent.setMajorTickUnit(2*Math.PI);
         direction_vent.setShowTickMarks(true);
         direction_vent.setShowTickLabels(true);
         direction_vent.getStyleClass().add("slider-wind");
@@ -158,7 +158,11 @@ public class Main extends Application
         Separator sep4 = new Separator();
 
 
-        cb.getChildren().addAll(titre_oiseaux,slider_oiseaux, sep1, titre_wind_value,force_vent,titre_theta,direction_vent, sep2, titre_predateurs,plus_predateur,moins_predateur, sep3, titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,sep4, reinit);
+        // Sans les prédateurs
+        cb.getChildren().addAll(titre_oiseaux,slider_oiseaux, sep1, titre_wind_value,force_vent,titre_theta,direction_vent, sep2, titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,sep4, reinit);
+
+        // Avec les préadateurs
+        //cb.getChildren().addAll(titre_oiseaux,slider_oiseaux, sep1, titre_wind_value,force_vent,titre_theta,direction_vent, sep2, titre_predateurs,plus_predateur,moins_predateur, sep3, titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,sep4, reinit);
 
 
         // Action des boutons et sliders
@@ -296,7 +300,7 @@ public class Main extends Application
                 titre_cohesion.setText("Cohésion : " + String.format("%.2f",Boids.cohesion_parameter));
                 cohesion.adjustValue(Boids.cohesion_parameter);
                 Boids.wind_parameter = wind_parameter_init;
-                titre_wind_value.setText("Vitesse du vent (km/h) : " + String.format("%.2f",Boids.wind_parameter));
+                titre_wind_value.setText("Vitesse du vent : " + String.format("%.2f",Boids.wind_parameter));
                 force_vent.adjustValue(Boids.wind_parameter);
                 Boids.theta = theta_init;
                 titre_theta.setText("Direction du vent (rad) : " + String.format("%.2f",Boids.theta));
