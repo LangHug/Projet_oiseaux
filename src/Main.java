@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//import Projet_oiseaux.src.Boids;
 
 public class Main extends Application
 {   
@@ -37,7 +36,7 @@ public class Main extends Application
     private final double avoid_parameter_max = 10;
     private final double alignment_parameter_max = 10;
     private final double cohesion_parameter_max = 0.01;
-    private final double nb_oiseaux_max = 600;
+    private final int nb_oiseaux_max = 600;
     private final double wind_parameter_init = 0;
     private final double wind_parameter_max = 5;
     private final int nb_predateurs_init = 0;
@@ -161,7 +160,7 @@ public class Main extends Application
         // Sans les prédateurs
         cb.getChildren().addAll(titre_oiseaux,slider_oiseaux, sep1, titre_wind_value,force_vent,titre_theta,direction_vent, sep2, titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,sep4, reinit);
 
-        // Avec les préadateurs
+        // Avec les prédateurs
         //cb.getChildren().addAll(titre_oiseaux,slider_oiseaux, sep1, titre_wind_value,force_vent,titre_theta,direction_vent, sep2, titre_predateurs,plus_predateur,moins_predateur, sep3, titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,sep4, reinit);
 
 
@@ -297,7 +296,7 @@ public class Main extends Application
                 titre_alignement.setText("Alignement : " + String.format("%.2f",Boids.alignment_parameter));
                 alignement.adjustValue(Boids.alignment_parameter);
                 Boids.cohesion_parameter = cohesion_parameter_init;
-                titre_cohesion.setText("Cohésion : " + String.format("%.2f",Boids.cohesion_parameter));
+                titre_cohesion.setText("Cohésion : " + String.format("%.4f",Boids.cohesion_parameter));
                 cohesion.adjustValue(Boids.cohesion_parameter);
                 Boids.wind_parameter = wind_parameter_init;
                 titre_wind_value.setText("Vitesse du vent : " + String.format("%.2f",Boids.wind_parameter));

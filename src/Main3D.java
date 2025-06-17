@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Random;
 
 
-
 public class Main3D extends Application
 {   
     // Constantes
@@ -43,18 +42,19 @@ public class Main3D extends Application
     public static final int HAUTEUR_ECRAN = 600;
     public static final int PROFONDEUR_ECRAN = 1000;
     private static final int DISTANCE_CAMERA = 1700;
-    private final double avoid_parameter_max = 20;
-    private final double avoid_parameter_init = 1;
-    private final double alignment_parameter_max = 3;
-    private final double alignment_parameter_init = 1;
-    private final double cohesion_parameter_max = 0.1;
-    private final double cohesion_parameter_init = 0.0005;
-    private final double wind_parameter_max = 100;
-    private final double wind_parameter_init = 0;
-    private final double theta_init = 3*Math.PI/4;
     private final int nb_oiseaux_init = 100;
-    private final double nb_oiseaux_max = 1000;
+    private final double avoid_parameter_max = 10;
+    private final double alignment_parameter_max = 10;
+    private final double cohesion_parameter_max = 0.01;
+    private final int nb_oiseaux_max = 600;
+    private final double wind_parameter_init = 0;
+    private final double wind_parameter_max = 5;
     private final int nb_predateurs_init = 0;
+    private final double theta_init = 3*Math.PI/4;
+    private final double avoid_parameter_init = 1;
+    private final double alignment_parameter_init = 1;
+    private final double cohesion_parameter_init = 0.001;
+    
 
     // Variables
     private int nb_oiseaux;
@@ -104,54 +104,6 @@ public class Main3D extends Application
         }
         
 
-        /*
-        // Test limites écran
-        Sphere sphere = new Sphere(10);
-        sphere.setTranslateX(0);
-        sphere.setTranslateY(0);
-        sphere.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        sphere.setMaterial(new PhongMaterial(Color.RED));
-        ecran.getChildren().add(sphere);
-        light.getScope().add(sphere);
-        light2.getScope().add(sphere);
-
-        Sphere hg = new Sphere(10);
-        hg.setTranslateX(-LARGEUR_ECRAN/2);
-        hg.setTranslateY(-HAUTEUR_ECRAN/2);
-        hg.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        hg.setMaterial(new PhongMaterial(Color.RED));
-        ecran.getChildren().add(hg);
-        light.getScope().add(hg);
-        light2.getScope().add(hg); 
-
-        Sphere hd = new Sphere(10);
-        hd.setTranslateX(LARGEUR_ECRAN/2);
-        hd.setTranslateY(-HAUTEUR_ECRAN/2);
-        hd.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        hd.setMaterial(new PhongMaterial(Color.RED));
-        ecran.getChildren().add(hd);
-        light.getScope().add(hd);
-        light2.getScope().add(hd);
-
-        Sphere bg = new Sphere(10);
-        bg.setTranslateX(-LARGEUR_ECRAN/2);
-        bg.setTranslateY(HAUTEUR_ECRAN/2);
-        bg.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        bg.setMaterial(new PhongMaterial(Color.RED));
-        ecran.getChildren().add(bg);
-        light.getScope().add(bg);
-        light2.getScope().add(bg);
-        
-        Sphere bd = new Sphere(10);
-        bd.setTranslateX(LARGEUR_ECRAN/2);
-        bd.setTranslateY(HAUTEUR_ECRAN/2);
-        bd.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        bd.setMaterial(new PhongMaterial(Color.RED));
-        ecran.getChildren().add(bd);
-        light.getScope().add(bd);
-        light2.getScope().add(bd); 
-        */
-
 
         // On ajoute les commandes à droite
 
@@ -165,7 +117,7 @@ public class Main3D extends Application
         slider_oiseaux.setTranslateX(LARGEUR_ECRAN/2);
         slider_oiseaux.setTranslateY(-HAUTEUR_ECRAN/2+20);
         slider_oiseaux.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        slider_oiseaux.setMajorTickUnit(50);
+        slider_oiseaux.setMajorTickUnit(100);
         slider_oiseaux.setShowTickMarks(true);
         slider_oiseaux.setShowTickLabels(true);
         slider_oiseaux.getStyleClass().add("slider-nboiseaux");
@@ -181,7 +133,7 @@ public class Main3D extends Application
         evitement.setTranslateX(LARGEUR_ECRAN/2);
         evitement.setTranslateY(-HAUTEUR_ECRAN/2+90);
         evitement.setTranslateZ(-PROFONDEUR_ECRAN/2);
-        evitement.setMajorTickUnit(1);
+        evitement.setMajorTickUnit(2);
         evitement.setShowTickMarks(true);
         evitement.setShowTickLabels(true);
         evitement.getStyleClass().add("slider-parameter");
@@ -194,7 +146,7 @@ public class Main3D extends Application
         ecran.getChildren().add(titre_alignement);
         
         Slider alignement = new Slider(0, alignment_parameter_max, Boids3D.alignment_parameter);
-        alignement.setMajorTickUnit(0.01);
+        alignement.setMajorTickUnit(2);
         alignement.setShowTickMarks(true);
         alignement.setShowTickLabels(true);
         alignement.getStyleClass().add("slider-parameter");
@@ -203,14 +155,14 @@ public class Main3D extends Application
         alignement.setTranslateZ(-PROFONDEUR_ECRAN/2);
         ecran.getChildren().add(alignement);
 
-        Label titre_cohesion = new Label("Cohesion : " + String.format("%.2f",Boids3D.cohesion_parameter));
+        Label titre_cohesion = new Label("Cohesion : " + String.format("%.4f",Boids3D.cohesion_parameter));
         titre_cohesion.setTranslateX(LARGEUR_ECRAN/2);
         titre_cohesion.setTranslateY(-HAUTEUR_ECRAN/2+210);
         titre_cohesion.setTranslateZ(-PROFONDEUR_ECRAN/2);
         ecran.getChildren().add(titre_cohesion);
 
         Slider cohesion = new Slider(0, cohesion_parameter_max, Boids3D.cohesion_parameter);
-        cohesion.setMajorTickUnit(0.01);
+        cohesion.setMajorTickUnit(0.002);
         cohesion.setShowTickMarks(true);
         cohesion.setShowTickLabels(true);
         cohesion.getStyleClass().add("slider-parameter");
@@ -227,7 +179,7 @@ public class Main3D extends Application
         ecran.getChildren().add(titre_wind_value);
 
         Slider force_vent = new Slider (0, wind_parameter_max, wind_parameter_init);
-        force_vent.setMajorTickUnit(20);
+        force_vent.setMajorTickUnit(1);
         force_vent.setShowTickMarks(true);
         force_vent.setShowTickLabels(true);
         force_vent.getStyleClass().add("slider-wind");
@@ -244,7 +196,7 @@ public class Main3D extends Application
         ecran.getChildren().add(titre_theta);
         
         Slider direction_vent = new Slider(0, 2*Math.PI, theta_init);
-        direction_vent.setMajorTickUnit(20);
+        direction_vent.setMajorTickUnit(2*Math.PI);
         direction_vent.setShowTickMarks(true);
         direction_vent.setShowTickLabels(true);
         direction_vent.getStyleClass().add("slider-wind");
@@ -253,7 +205,7 @@ public class Main3D extends Application
         direction_vent.setTranslateZ(-PROFONDEUR_ECRAN/2);
         ecran.getChildren().add(direction_vent);
 
-        
+        /*
         // Prédateurs
         Label titre_predateurs = new Label("Nombre de prédateurs : " + nb_predateurs);
         titre_predateurs.setTranslateX(LARGEUR_ECRAN/2);
@@ -274,12 +226,14 @@ public class Main3D extends Application
         moins_predateur.setTranslateY(-HAUTEUR_ECRAN/2+490);
         moins_predateur.setTranslateZ(-PROFONDEUR_ECRAN/2);
         ecran.getChildren().add(moins_predateur);
+        */
+
 
         // Réinitialise les paramètres
         Button reinit = new Button("Réinitialiser les paramètres");
         reinit.getStyleClass().add("bouton-rei3D");
         reinit.setTranslateX(LARGEUR_ECRAN/2);
-        reinit.setTranslateY(-HAUTEUR_ECRAN/2+540);
+        reinit.setTranslateY(-HAUTEUR_ECRAN/2+420);
         reinit.setTranslateZ(-PROFONDEUR_ECRAN/2);
         ecran.getChildren().add(reinit);
 
@@ -325,7 +279,6 @@ public class Main3D extends Application
                             ecran.getChildren().remove(boids.get(n).getShape());
                             boids.remove(n);
                         };
-                        // Remarque : Au moment d'ajouter les prédateurs, vérifier que ceux-ci ne sont pas retirés de l'écran
                     }
 
                     nb_oiseaux = newValue.intValue();
@@ -371,7 +324,7 @@ public class Main3D extends Application
                 public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
                 {
                     Boids3D.cohesion_parameter = newValue.doubleValue();
-                    titre_cohesion.setText("Cohésion : " + String.format("%.2f",Boids3D.cohesion_parameter));
+                    titre_cohesion.setText("Cohésion : " + String.format("%.4f",Boids3D.cohesion_parameter));
                 }
             }
         );
@@ -414,12 +367,27 @@ public class Main3D extends Application
             public void handle(ActionEvent event)
             {
                 nb_oiseaux = nb_oiseaux_init;
-                nb_predateurs = nb_predateurs_init;
+                //nb_predateurs = nb_predateurs_init;
                 Boids3D.avoid_parameter = avoid_parameter_init;
                 Boids3D.alignment_parameter = alignment_parameter_init;
                 Boids3D.cohesion_parameter = cohesion_parameter_init;
                 Boids3D.wind_parameter = wind_parameter_init;
                 Boids3D.theta = theta_init;
+
+                titre_oiseaux.setText("Nombre d'oiseaux : " + nb_oiseaux);
+                slider_oiseaux.adjustValue(nb_oiseaux);
+                //titre_predateurs.setText("Nombre de prédateurs : " + nb_predateurs);
+                // predateurs.clear();
+                titre_evitement.setText("Evitement : " + String.format("%.2f",Boids.avoid_parameter));
+                evitement.adjustValue(Boids.avoid_parameter);
+                titre_alignement.setText("Alignement : " + String.format("%.2f",Boids.alignment_parameter));
+                alignement.adjustValue(Boids.alignment_parameter);
+                titre_cohesion.setText("Cohésion : " + String.format("%.4f",Boids.cohesion_parameter));
+                cohesion.adjustValue(Boids.cohesion_parameter);
+                titre_wind_value.setText("Vitesse du vent : " + String.format("%.2f",Boids.wind_parameter));
+                force_vent.adjustValue(Boids.wind_parameter);
+                titre_theta.setText("Direction du vent (rad) : " + String.format("%.2f",Boids.theta));
+                direction_vent.adjustValue(Boids.theta);
 
                 boids.clear();
                 ecran.getChildren().clear();
@@ -436,14 +404,12 @@ public class Main3D extends Application
 
 
                 // On ajoute les commandes à droite
-                ecran.getChildren().addAll(titre_oiseaux,slider_oiseaux,titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,titre_wind_value,force_vent,titre_theta,direction_vent,titre_predateurs,plus_predateur,moins_predateur,reinit);
 
-
-
-                //titre_predateurs.setText("Nombre de prédateurs : " + nb_predateurs);
-                // predateurs.clear();
-
-
+                // Avec prédateurs
+                //ecran.getChildren().addAll(titre_oiseaux,slider_oiseaux,titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,titre_wind_value,force_vent,titre_theta,direction_vent,titre_predateurs,plus_predateur,moins_predateur,reinit);
+                
+                // Sans prédateurs
+                ecran.getChildren().addAll(titre_oiseaux,slider_oiseaux,titre_evitement,evitement,titre_alignement,alignement,titre_cohesion,cohesion,titre_wind_value,force_vent,titre_theta,direction_vent,reinit);
 
 
             }
