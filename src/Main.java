@@ -234,7 +234,7 @@ public class Main extends Application
                 public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
                 {
                     Boids.cohesion_parameter = newValue.doubleValue();
-                    titre_cohesion.setText("Cohésion : " + String.format("%.2f",Boids.cohesion_parameter));
+                    titre_cohesion.setText("Cohésion : " + String.format("%.4f",Boids.cohesion_parameter));
                 }
             }
         );

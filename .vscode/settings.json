@@ -1,0 +1,16 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.base.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.controls.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.fxml.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.graphics.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.media.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.swing.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx.web.jar",
+        "c:\\Users\\hugil\\OneDrive\\Documents\\Projet_oiseaux\\openjfx\\javafx\\lib\\javafx-swt.jar"
+    ],
+    "jdk.runConfig.arguments": "3"
+}
