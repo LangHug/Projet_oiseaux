@@ -1,0 +1,1 @@
+c:; cd 'c:\Users\hugil\OneDrive\Documents\Projet_oiseaux\Projet_oiseaux'; & 'C:\Program Files\Java\jdk-23\bin\java.exe' '@C:\Users\hugil\AppData\Local\Temp\cp_aar7ikt6v4qn60qohm9bdnnhr.argfile' 'Main'
